@@ -69,3 +69,9 @@ class Job(models.Model):
 
     def __str__(self):
         return self.job_position
+
+    def get_salary_info(self):
+        if self.salary_max and self.salary_min:
+            return "%s-%s %s" % (self.salary_min, self.salary_max, self.get_currency_display())
+        else:
+            return "Не указано"

@@ -6,4 +6,4 @@ from .models import Job
 class JobCreateForm(forms.ModelForm):
     class Meta:
         model = Job
-        exclude = ('creator', 'is_expired')
+        exclude = ('creator', 'is_expired', 'is_approved')
