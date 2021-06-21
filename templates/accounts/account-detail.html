@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Личный кабинет
+{% endblock %}
+
+{% block content %}
+        <style>
+        .job-item:hover {
+            text-decoration: none !important;
+        }
+    </style>
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <h1 class="mb-4">Мои вакансии</h1>
+                {% for job in jobs %}
+                    <div class="col-md-12 jobs mb-3 bg-light border border-secondary">
+                        <a href="" class="job-item p-1">
+                            <div class="row">
+                                <div class="col-md-3 job-item-company">
+                                    <span class="text-secondary">Компания</span>
+                                    <p class="font-weight-bold">{{ job.organization.name }}</p>
+                                </div>
+                                <div class="col-md-3 job-item-company">
+                                    <span class="text-secondary">Позиция</span>
+                                    <p class="font-weight-bold">{{ job.job_position }}</p>
+                                </div>
+                                <div class="col-md-3 job-item-salary">
+                                    <span class="text-secondary">Оклад</span>
+                                    {% if job.get_salary_info %}
+                                        <p class="font-weight-bold">{{ job.get_salary_info }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-3 job-item-salary">
+                                    <span class="text-secondary">Тип</span>
+                                    <p class="font-weight-bold">{{ job.get_type_display }}</p>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="row pb-2">
+                            <div class="col-md-4">
+                                <a href="" class="btn btn-block btn-secondary">Посетить страницу</a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="" class="btn btn-block btn-primary">Изменить настройки</a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="" class="btn btn-danger btn-block">Удалить</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
