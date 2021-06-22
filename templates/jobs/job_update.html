@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Изменить данные
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-9">
+                 <h1 class="mb-3">Изменить данные вакансии</h1>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <button type="submit" class="btn btn-dark">Сохранить</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
