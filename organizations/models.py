@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
@@ -16,7 +17,7 @@ class Organization(models.Model):
         null=True,
         verbose_name=_('Логотип')
     )
-    name = models.CharField(max_length=120, verbose_name=_('Название'))
+    name = models.CharField(max_length=120, unique=True, verbose_name=_('Название'))
     description = models.TextField(verbose_name=_('Описание'))
     website = models.URLField(null=True, blank=True, verbose_name=_('Веб-сайт'))
 
@@ -27,3 +28,9 @@ class Organization(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('organizations:organization-detail', args=[self.id])
+
+    def get_jobs_count(self):
+        return self.jobs.filter(organization_id=self.id, is_approved=True).count()

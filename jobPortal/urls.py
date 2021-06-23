@@ -21,6 +21,7 @@ from jobs.views import HomePageView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('jobs/', include('jobs.urls')),
+    path('organizations/', include('organizations.urls', namespace='organizations')),
     path('', include('accounts.urls')),
     path('', HomePageView.as_view(), name='homepage')
 ]
