@@ -1,10 +1,7 @@
 from django.db import models
 from django.shortcuts import reverse
 from django.conf import settings
-from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-
-from organizations.models import Organization
 
 
 class Job(models.Model):
@@ -35,7 +32,7 @@ class Job(models.Model):
         verbose_name=_('Вакансия')
     )
     organization = models.ForeignKey(
-        Organization,
+        'organizations.Organization',
         on_delete=models.CASCADE,
         related_name='jobs',
         verbose_name=_('Организация')
@@ -59,7 +56,7 @@ class Job(models.Model):
                             blank=True,
                             verbose_name=_('Город'))
     is_expired = models.BooleanField(blank=True, default=False, verbose_name=_('Актуальность'))
-    is_approved = models.BooleanField(blank=True, default=False, verbose_name=_('Подтвердить'))
+    is_approved = models.BooleanField(blank=True, default=True, verbose_name=_('Подтвердить'))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -72,10 +69,16 @@ class Job(models.Model):
         return self.job_position
 
     def get_absolute_url(self):
-        return reverse_lazy('jobs:job-detail', args=[self.pk])
+        return reverse('jobs:job-detail', args=[self.pk])
 
     def get_salary_info(self):
         if self.salary_max and self.salary_min:
             return "%s-%s %s" % (self.salary_min, self.salary_max, self.get_currency_display())
         else:
             return _("Не указано")
+
+    def get_job_type(self):
+        if self.type == 'remote':
+            return self.get_type_display()
+        else:
+            return "%s/%s" % (self.get_type_display(), self.city)

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
-    Войти
+    Создать аккаунт
 {% endblock %}
 
 {% block content %}
@@ -9,14 +9,14 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-md-9">
-                 <h1 class="mb-3">Войти</h1>
+                 <h1 class="mb-3">Создать аккаунт</h1>
                 <form action="" method="post">
                     {% csrf_token %}
                     {{ form | crispy }}
                     {% if request.GET.next %}
                         <input type="hidden" name="next" value="{{ request.GET.next }}">
                     {% endif %}
-                    <button type="submit" class="btn btn-dark">Создать аккаунт</button>
+                    <button type="submit" class="btn btn-dark">Войти</button>
                 </form>
             </div>
         </div>

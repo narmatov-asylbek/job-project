@@ -12,7 +12,7 @@ Developers Today
             <div class="col-md-12">
                 <h1 class="font-weight-bold mt-3">Хотите найти работу в сфере IT?</h1>
                 <p class="h5 mt-3">Здесь вы найдете сотни вакансий</p>
-                <a href="{% url 'jobs:job-list' %}" class="btn btn-info btn-lg mt-4">Найти работу</a>
+                <a href="{% url 'jobs:job-list' %}" class="btn btn-info btn-lg mt-4">Посмотреть вакансии</a>
             </div>
         </div>
     </div>
@@ -55,6 +55,10 @@ Developers Today
                                 </div>
                             </div>
                         </a>
+                    </div>
+                     {% empty %}
+                    <div class="col-md-12">
+                        {% include 'includes/empty_list.html' %}
                     </div>
                 {% endfor %}
             </div>

@@ -46,6 +46,10 @@
                             </div>
                         </a>
                     </div>
+                    {% empty %}
+                    <div class="col-md-12">
+                        {% include 'includes/empty_list.html' %}
+                    </div>
                 {% endfor %}
             </div>
 

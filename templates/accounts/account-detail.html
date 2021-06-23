@@ -12,7 +12,7 @@
                 <h1 class="mb-4">Мои вакансии</h1>
                 {% for job in jobs %}
                     <div class="col-md-12 jobs mb-3 bg-light border border-secondary">
-                        <a href="" class="job-item p-1">
+                        <a href="{{ job.get_absolute_url }}" class="job-item p-1">
                             <div class="row">
                                 <div class="col-md-3 job-item-company">
                                     <span class="text-secondary">Компания</span>
@@ -48,33 +48,42 @@
                                         data-target="#exampleModalCenter">
                                     Удалить
                                 </button>
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Удаление вакансии</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{% url 'jobs:job-delete' job.pk %}" method="post">
-                    {% csrf_token %}
-                    <div class="modal-body">
-                        Вы уверены что хотите удалить эту вакансию?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                        <button type="submit" class="btn btn-danger">Удалить</button>
-                    </div>
-                </form>
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Удаление
+                                                    вакансии</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{% url 'jobs:job-delete' job.pk %}" method="post">
+                                                {% csrf_token %}
+                                                <div class="modal-body">
+                                                    Вы уверены что хотите удалить эту вакансию?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Отмена
+                                                    </button>
+                                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                                </div>
+                                            </form>
 
-            </div>
-        </div>
-    </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {% empty %}
+                    <div class="col-md-12">
+                    {% include 'includes/empty_list.html' %}
+                    </div>
+
                 {% endfor %}
             </div>
 

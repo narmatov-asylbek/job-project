@@ -3,6 +3,8 @@ from django.shortcuts import reverse
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
+from jobs.models import Job
+
 
 class Organization(models.Model):
     creator = models.ForeignKey(
@@ -33,4 +35,4 @@ class Organization(models.Model):
         return reverse('organizations:organization-detail', args=[self.id])
 
     def get_jobs_count(self):
-        return self.jobs.filter(organization_id=self.id, is_approved=True).count()
+        return Job.objects.filter(organization_id=self.id, is_approved=True).count()
