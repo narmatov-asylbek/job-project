@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ organization.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="spacer mt-5"></div>
+    <section class="job-detail">
+        <div class="container">
+            <h1>{{ organization.name }}</h1>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="job-information mt-4 mb-4">
+                        <div class="job-salary">
+                            {% if organization.website %}
+                                <span class="text-secondary">Веб-сайт</span>
+                                <p>
+                                    <a href="{{ organization.website }}" target="_blank"
+                                       class="font-weight-bold">{{ organization.website }}</a>
+                                </p>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <div class="spacer mt-5"></div>
+                    <p class="text-secondary font-weight-bold">Информация о компании</p>
+                    <div class="job-description bg-light p-4" style="min-height: 300px;">
+                        <p>{{ organization.description }}</p>
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </section>
+    <div class="spacer mt-5"></div>
+    <section>
+        <div class="container">
+            <h4 class="text-secondary mb-3">Вакансии</h4>
+            {% for job in jobs %}
+                <a href="{{ job.get_absolute_url }}" class="row bg-light mb-3">
+                    <div class="col-md-12 p-3">
+                        <div class="row">
+                            <div class="col-md-3 job-item-company">
+                                <span class="text-secondary">Компания</span>
+                                <p class="font-weight-bold">{{ job.organization.name }}</p>
+                            </div>
+                            <div class="col-md-3 job-item-company">
+                                <span class="text-secondary">Позиция</span>
+                                <p class="font-weight-bold">{{ job.job_position }}</p>
+                            </div>
+                            <div class="col-md-3 job-item-salary">
+                                <span class="text-secondary">Оклад</span>
+                                {% if job.get_salary_info %}
+                                    <p class="font-weight-bold">{{ job.get_salary_info }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-3 job-item-salary">
+                                <span class="text-secondary">Тип</span>
+                                <p class="font-weight-bold">{{ job.get_type_display }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

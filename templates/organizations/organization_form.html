@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Добавить вакансию
+{% endblock %}
+
+{% block content %}
+    <div class="spacer pt-5"></div>
+    <section>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-9">
+                 <h1 class="mb-3">Добавить организацию</h1>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <button type="submit" class="btn btn-dark">Сохранить</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    </section>
+
+{% endblock %}

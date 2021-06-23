@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Последние вакансии
+{% endblock %}
+
+{% block content %}
+    <style>
+        .job-item:hover {
+            text-decoration: none !important;
+        }
+    </style>
+    <div class="spacer mt-5"></div>
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 offset-md-9 text-right">
+                    <a href="{% url 'organizations:organization-create' %}" class="btn btn-outline-info btn-sm">Добавить
+                    организацию</a></div>
+            </div>
+            <div class="spacer mt-3"></div>
+            <div class="row">
+                {% for organization in organizations %}
+                    <div class="col-md-12 jobs mb-3 bg-light border border-secondary">
+                        <a href="{{ organization.get_absolute_url }}" class="job-item p-1">
+                            <div class="row">
+                                <div class="col-md-9 job-item-company">
+                                    <span class="text-secondary">Компания</span>
+                                    <p class="font-weight-bold">{{ organization.name }}</p>
+                                </div>
+                                <div class="col-md-3 job-item-salary text-center">
+                                    <span class="text-secondary">Вакансий</span>
+                                    <p class="font-weight-bold">{{ organization.get_jobs_count }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+{% endblock content %}
