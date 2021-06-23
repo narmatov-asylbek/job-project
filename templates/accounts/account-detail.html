@@ -5,11 +5,7 @@
 {% endblock %}
 
 {% block content %}
-        <style>
-        .job-item:hover {
-            text-decoration: none !important;
-        }
-    </style>
+    <div class="spacer mt-5"></div>
     <section class="section">
         <div class="container">
             <div class="row">
@@ -40,13 +36,42 @@
                         </a>
                         <div class="row pb-2">
                             <div class="col-md-4">
-                                <a href="" class="btn btn-block btn-secondary">Посетить страницу</a>
+                                <a href="{{ job.get_absolute_url }}" class="btn btn-block btn-secondary">Посетить
+                                    страницу</a>
                             </div>
                             <div class="col-md-4">
-                                <a href="{% url 'jobs:job-update' job.id %}" class="btn btn-block btn-primary">Изменить настройки</a>
+                                <a href="{% url 'jobs:job-update' job.id %}" class="btn btn-block btn-primary">Изменить
+                                    настройки</a>
                             </div>
                             <div class="col-md-4">
-                                <a href="" class="btn btn-danger btn-block">Удалить</a>
+                                <button type="button" class="btn btn-danger btn-block" data-toggle="modal"
+                                        data-target="#exampleModalCenter">
+                                    Удалить
+                                </button>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Удаление вакансии</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{% url 'jobs:job-delete' job.pk %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        Вы уверены что хотите удалить эту вакансию?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
                             </div>
                         </div>
                     </div>

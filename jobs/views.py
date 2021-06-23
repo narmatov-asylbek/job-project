@@ -1,11 +1,20 @@
 from django.urls import reverse_lazy, reverse
-from django.http import Http404
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.http import Http404, HttpResponseRedirect
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import JobForm
 from .models import Job
 from organizations.models import Organization
+
+
+class HomePageView(ListView):
+    model = Job
+    template_name = 'homepage.html'
+    paginate_by = 7
+
+    def get_queryset(self):
+        return Job.objects.filter(is_approved=True)
 
 
 class JobCreateView(LoginRequiredMixin, CreateView):
@@ -17,6 +26,9 @@ class JobCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.creator = self.request.user
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('jobs:job-detail', args=[self.object.pk])
 
 
 class JobDetailView(DetailView):
@@ -42,6 +54,16 @@ class JobUpdateView(LoginRequiredMixin, UpdateView):
         if self.get_object().creator != request.user:
             raise Http404
         return super(JobUpdateView, self).dispatch(self.request, *args, **kwargs)
+
+
+class JobDeleteView(LoginRequiredMixin, DeleteView):
+    model = Job
+    success_url = reverse_lazy('user-detail')
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.get_object().creator != request.user:
+            raise Http404
+        return super(JobDeleteView, self).dispatch(self.request, *args, **kwargs)
 
 
 class JobListView(ListView):

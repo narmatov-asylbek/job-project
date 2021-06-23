@@ -31,3 +31,8 @@
   border-radius: 3rem;
 }
 
+.navbar-sticky {
+    top: 0;
+    position: sticky;
+    z-index: 1080;
+}
