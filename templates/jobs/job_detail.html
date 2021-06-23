@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ job.job_position }}
+{% endblock %}
+
+{% block content %}
+    <section class="job-detail">
+        <div class="container">
+            <h1>{{ job.job_position }}</h1>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="company-detail bg-light border border-secondary">
+                        <a href="" class="">
+                            <span class="text-secondary">Организация</span>
+                            <p class="">{{ organization.name }}</p>
+                        </a>
+                    </div>
+                    <div class="job-information mt-4 mb-4">
+                        <div class="job-salary">
+                            <span class="text-secondary">Оклад</span>
+                            <p class="font-weight-bold">{{ job.get_salary_info }}</p>
+                        </div>
+                        <div class="job-type">
+                            <span class="text-secondary">Тип работы</span>
+                            <p class="font-weight-bold">{{ job.get_type_display }}/{{ job.city }}</p>
+                        </div>
+
+                    </div>
+                    <div class="spacer mt-3"></div>
+                     <div class="job-description bg-light p-4" style="min-height: 400px;">
+                         <p>{{ job.description }}</p>
+                     </div>
+                    <div class="job-contacts">
+                        {% if job.telegram %}
+                        <p>Telegram: <a href="">{{ job.telegram }}</a></p>
+                        {% endif %}
+                        {% if job.phone %}
+                        <p>Телефон: <a href="">{{ job.phone }}</a></p>
+                        {% endif %}
+                        {% if job.email %}
+                        <p>E-mail: <a href="">{{ job.email }}</a></p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

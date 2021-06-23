@@ -1,6 +1,7 @@
 from django.db import models
-
+from django.shortcuts import reverse
 from django.conf import settings
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
 from organizations.models import Organization
@@ -70,8 +71,11 @@ class Job(models.Model):
     def __str__(self):
         return self.job_position
 
+    def get_absolute_url(self):
+        return reverse_lazy('jobs:job-detail', args=[self.pk])
+
     def get_salary_info(self):
         if self.salary_max and self.salary_min:
             return "%s-%s %s" % (self.salary_min, self.salary_max, self.get_currency_display())
         else:
-            return "Не указано"
+            return _("Не указано")

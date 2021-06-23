@@ -1,22 +1,39 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Личный кабинет
+Developers Today
 {% endblock %}
 
 {% block content %}
-        <style>
-        .job-item:hover {
-            text-decoration: none !important;
-        }
-    </style>
-    <section class="section">
+<main style="height: 100vh;">
+    <section style="height: 550px;" class="bg-dark text-white d-flex flex-column justify-content-center align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="font-weight-bold mt-3">Хотите найти работу в сфере IT?</h1>
+                <p class="h5 mt-3">Здесь вы найдете сотни вакансий</p>
+                <a href="{% url 'jobs:job-list' %}" class="btn btn-info btn-lg mt-4">Найти работу</a>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+
+    <section style="">
         <div class="container">
             <div class="row">
-                <h1 class="mb-4">Мои вакансии</h1>
-                {% for job in jobs %}
+                <div class="col-md-6">
+                    <h3>Последние вакансии</h3>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="{% url 'jobs:job-list' %}" class="btn btn-sm btn-outline-info">Посмотреть все вакансии</a>
+                </div>
+            </div>
+            <div class="spacer mt-3 mb-3"></div>
+            <div class="row">
+                 {% for job in object_list %}
                     <div class="col-md-12 jobs mb-3 bg-light border border-secondary">
-                        <a href="" class="job-item p-1">
+                        <a href="{{ job.get_absolute_url }}" class="job-item p-1">
                             <div class="row">
                                 <div class="col-md-3 job-item-company">
                                     <span class="text-secondary">Компания</span>
@@ -38,21 +55,10 @@
                                 </div>
                             </div>
                         </a>
-                        <div class="row pb-2">
-                            <div class="col-md-4">
-                                <a href="" class="btn btn-block btn-secondary">Посетить страницу</a>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="{% url 'jobs:job-update' job.id %}" class="btn btn-block btn-primary">Изменить настройки</a>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="" class="btn btn-danger btn-block">Удалить</a>
-                            </div>
-                        </div>
                     </div>
                 {% endfor %}
             </div>
-
         </div>
     </section>
+
 {% endblock %}
