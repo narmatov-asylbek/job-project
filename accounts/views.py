@@ -1,12 +1,14 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import logout, login
 from django.http import HttpResponseRedirect
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, CreateView, RedirectView, FormView
 
 from jobs.models import Job
 from .forms import UserRegistrationForm, UserLoginForm
-from .models import User
+
+User = get_user_model()
 
 
 class UserRegistrationView(CreateView):

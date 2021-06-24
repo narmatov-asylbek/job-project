@@ -10,7 +10,7 @@ from .models import User
 class UserRegistrationForm(UserCreationForm):
     password1 = forms.CharField(label='Введите пароль',
                                 widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Первый пароль',
+    password2 = forms.CharField(label='Повторите пароль',
                                 widget=forms.PasswordInput)
 
     class Meta:
