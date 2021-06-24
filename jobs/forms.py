@@ -15,7 +15,7 @@ class JobForm(forms.ModelForm):
         email = cleaned_data.get('email')
         if not telegram and not email and not phone:
             raise ValidationError('Укажите контактные данные для отклика')
-        return 
+        return cleaned_data
 
     def clean_city(self):
         job_type = self.cleaned_data.get('type')
