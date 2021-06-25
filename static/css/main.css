@@ -36,3 +36,6 @@
     position: sticky;
     z-index: 1080;
 }
+.job-item:hover {
+text-decoration: none !important;
+}
