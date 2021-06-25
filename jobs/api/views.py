@@ -13,6 +13,9 @@ class JobsListCreateView(ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     authentication_classes = [authentication.SessionAuthentication]
 
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
+
 
 class JobDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = JobSerializer
