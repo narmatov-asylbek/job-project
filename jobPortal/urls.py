@@ -15,13 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 
-from jobs.views import HomePageView
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Job Project API",
+      default_version='v1',
+      description="Open source Job posting Portal",
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
+
 
 urlpatterns = [
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('admin/', admin.site.urls),
-    path('jobs/', include('jobs.urls')),
+    path('', include('jobs.urls')),
     path('organizations/', include('organizations.urls', namespace='organizations')),
 
     path("api/", include([
@@ -30,7 +43,5 @@ urlpatterns = [
         path("", include("organizations.api.urls"))
     ])),
     path('api-auth/', include('rest_framework.urls')),
-
-    path('', HomePageView.as_view(), name='homepage'),
 ]
 
