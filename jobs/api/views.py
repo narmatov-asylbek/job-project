@@ -4,6 +4,7 @@ from rest_framework import authentication
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import filters
 
 from .serializers import JobSerializer
 from jobs.models import Job
@@ -26,6 +27,12 @@ class JobListView(ListCreateAPIView):
     queryset = Job.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     authentication_classes = [authentication.SessionAuthentication]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+
+    ordering_fields = ['job_position', 'created_at', 'is_expired', 'salary_min']
+    ordering = ['job_position']
+    search_fields = ['job_position']
+
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
