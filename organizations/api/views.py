@@ -7,7 +7,7 @@ from .serializers import OrganizationSerializer
 from jobs.api.permissions import IsCreatorOrReadOnly
 
 
-class OrganizationListCreateView(ListCreateAPIView):
+class OrganizationListView(ListCreateAPIView):
     queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]

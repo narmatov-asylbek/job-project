@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .views import OrganizationListCreateView, OrganizationDetailView
+from .views import OrganizationListView, OrganizationDetailView
 
 urlpatterns = [
-    path("organizations/", OrganizationListCreateView.as_view()),
+    path("organizations/", OrganizationListView.as_view(), name='api-organization-list'),
     path('organizations/<int:pk>/', OrganizationDetailView.as_view())
 ]
